@@ -7,14 +7,11 @@
 /* Footer */
 
 #footer {
-  @include vendor(
-    'transition',
-    (
-      'transform #{_duration(article)} ease-in-out',
-      'filter #{_duration(article)} ease-in-out',
-      'opacity #{_duration(article)} ease-in-out'
-    )
-  );
+  @include vendor('transition', (
+    'transform #{_duration(article)} ease-in-out',
+    'filter #{_duration(article)} ease-in-out',
+    'opacity #{_duration(article)} ease-in-out',
+  ));
   width: 100%;
   max-width: 100%;
   margin-top: 2rem;
@@ -30,11 +27,27 @@
 
   .body.is-article-visible & {
     @include vendor('transform', 'scale(0.95)');
-    // @include vendor('filter', 'blur(0.1rem)');
+    @include vendor('filter', 'blur(0.1rem)');
     opacity: 0;
   }
 
   .body.is-loading & {
     opacity: 0;
   }
+  .signup {
+    width:60vw;
+    margin: 0 auto;
+    margin-bottom:10px;
+    .signup-form {
+      display: flex;
+      
+      flex-wrap:wrap;
+    }
+    input {
+      width: 80%;
+  align-self: center;
+  flex: 1 0 auto;
+    }
+  }
+  
 }
