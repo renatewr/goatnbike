@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
+import { graphql } from 'gatsby' 
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -90,11 +91,17 @@ class IndexPage extends React.Component {
   }
 
   render() {
+    const art = this.props.data.art.edges;
+    const siteDescription = this.props.data.siteMetadata.edges[0].node.metaDescription
+    const homepage = this.props.data.siteMetadata.edges[0].node
+    const siteTitle = this.props.data.siteMetadata.edges[0].node.metaTitle
+    const gbBackgroundImage = this.props.data.siteMetadata.edges[0].node.backgroundImages[0].file.url
+
     return (
       <Layout location={this.props.location}>
         <div className={`body ${this.state.loading} ${this.state.isArticleVisible ? 'is-article-visible' : ''}`}>
           <div id="wrapper">
-            <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} />
+            <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} art={art} home={homepage}/>
             <Main
               isArticleVisible={this.state.isArticleVisible}
               timeout={this.state.timeout}
@@ -102,10 +109,12 @@ class IndexPage extends React.Component {
               article={this.state.article}
               onCloseArticle={this.handleCloseArticle}
               setWrapperRef={this.setWrapperRef}
+              art={art}
             />
             <Footer timeout={this.state.timeout} />
           </div>
-          <div id="bg"></div>
+          
+          <div id="bg" style={{backgroundImage: "url(" + gbBackgroundImage + ")", backgroundPosition : '50% 10%'}}></div>
         </div>
       </Layout>
     )
@@ -113,3 +122,61 @@ class IndexPage extends React.Component {
 }
 
 export default IndexPage
+
+export const pageQuery = graphql`
+  query PageQuery {
+      art:allContentfulPost {
+        edges {
+          node {
+            id
+            slug
+            title {
+              title
+            }
+            body{
+              childMarkdownRemark{
+                html
+              }
+            }
+            featuredImage {
+              fluid(maxWidth: 980) {
+               ...GatsbyContentfulFluid
+              }
+              fixed(width: 600) {
+                width
+                height
+                src
+                srcSet
+              }
+            }
+          }
+        }
+      },
+      siteMetadata:allContentfulHome {
+        edges {
+          node {
+            id
+            title
+            metaTitle
+            metaDescription
+            leadingText{
+              leadingText
+            }
+            backgroundImages{
+              file {
+                url
+              }
+              fluid(maxWidth: 2800) {
+                ...GatsbyContentfulFluid
+              }
+            }
+            logo {
+              file {
+                url
+              }
+              }
+          }
+        }
+      }
+  }
+`

@@ -1,10 +1,56 @@
 import PropTypes from 'prop-types'
+import Img from "gatsby-image" 
 import React from 'react'
 import pic01 from '../images/pic01.jpg'
 import pic02 from '../images/pic02.jpg'
 import pic03 from '../images/pic03.jpg'
 
+const SecondPage = (props) => {
+
+  const articles = props.art
+  return (
+    <div id="main" style={props.timeout ? {display: 'flex'} : {display: 'none'}}>  
+    {articles.map(({ node: { title, slug, body, featuredImage } }) => (
+      <article key={slug} id={slug} className={`${props.article === slug ? 'active' : ''} ${props.articleTimeout ? 'timeout' : ''}`} style={{display:'none'}}>
+          <h2 className="major">{title.title}</h2>
+          <div className="image main">
+          <Img fluid={featuredImage.fluid} key={featuredImage.fluid.src} alt={featuredImage.title}/>
+          </div>
+          <div dangerouslySetInnerHTML={ { __html: body.childMarkdownRemark.html } }></div>
+          {props.close}
+        </article>
+    ))}
+    <article id="contact" className={`${props.article === 'contact' ? 'active' : ''} ${props.articleTimeout ? 'timeout' : ''}`} style={{display:'none'}}>
+          <h2 className="major">Contact</h2>
+          <form method="post" action="#">
+            <div className="field half first">
+              <label htmlFor="name">Name</label>
+              <input type="text" name="name" id="name" />
+            </div>
+            <div className="field half">
+              <label htmlFor="email">Email</label>
+              <input type="text" name="email" id="email" />
+            </div>
+            <div className="field">
+              <label htmlFor="message">Message</label>
+              <textarea name="message" id="message" rows="4"></textarea>
+            </div>
+            <ul className="actions">
+              <li><input type="submit" value="Send Message" className="special" /></li>
+              <li><input type="reset" value="Reset" /></li>
+            </ul>
+          </form>          
+          {props.close}
+        </article>
+        
+  </div>
+  )
+}
+
 class Main extends React.Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     let close = (
       <div
@@ -14,6 +60,13 @@ class Main extends React.Component {
         }}
       ></div>
     )
+    if(this.props && this.props.art){
+      return (
+        <SecondPage art={this.props.art} article={this.props.article} timeout={this.props.timeout} articleTimeout={this.props.articleTimeout} close={close}/>
+      )
+    }
+    return null;
+    
 
     return (
       <div
@@ -182,3 +235,4 @@ Main.propTypes = {
 }
 
 export default Main
+
