@@ -36,6 +36,7 @@
       width: _size(border-width);
       height: calc(3.5rem + 1px);
       background: _palette(border);
+      margin-top:0;
     }
   }
 
@@ -47,26 +48,35 @@
     }
   }
 
-  .logo {
-    width: 5.5rem;
-    height: 5.5rem;
-    line-height: 5.5rem;
-    border: solid _size(border-width) _palette(border);
-    border-radius: 100%;
-
-    .icon {
-      &:before {
-        font-size: 2rem;
-      }
-    }
-  }
+  
 
   .content {
     border-style: solid;
     border-color: _palette(border);
-    border-top-width: _size(border-width);
     border-bottom-width: _size(border-width);
     max-width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    .logo {
+      width: 100%;
+      height: 10.5rem;
+      line-height: 5.5rem;
+      display:flex;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .icon {
+        &:before {
+          font-size: 2rem;
+        }
+      }
+    }
 
     .inner {
       @include vendor('transition', (
@@ -200,7 +210,7 @@
     }
 
     .logo {
-      width: 4.75rem;
+      width: 100%;
       height: 4.75rem;
       line-height: 4.75rem;
 
