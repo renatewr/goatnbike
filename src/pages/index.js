@@ -96,11 +96,13 @@ class IndexPage extends React.Component {
     const homepage = this.props.data.siteMetadata.edges[0].node
     const siteTitle = this.props.data.siteMetadata.edges[0].node.metaTitle
     const gbBackgroundImage = this.props.data.siteMetadata.edges[0].node.backgroundImages[0].file.url
+    const gbLogo = this.props.data.siteMetadata.edges[0].node.logo.file.url
 
     return (
       <Layout location={this.props.location}>
         <div className={`body ${this.state.loading} ${this.state.isArticleVisible ? 'is-article-visible' : ''}`}>
           <div id="wrapper">
+            <div className={"gbLogo"} style={{backgroundImage: "url(" + gbLogo + ")", backgroundPosition : '50% 10%'}}></div>
             <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} art={art} home={homepage}/>
             <Main
               isArticleVisible={this.state.isArticleVisible}

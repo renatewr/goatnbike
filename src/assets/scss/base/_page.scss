@@ -32,5 +32,10 @@
 					@include vendor('transition-delay', 'none !important');
 				}
 			}
+		.gbLogo{
+			background-repeat:no-repeat;
+			height: 12rem;
+			width: 100%;
+		}
 
 	}

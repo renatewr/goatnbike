@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Logo from '../images/Logo_skygge.svg'
 
 const Product = ({ node, props }) => (
   <li>
@@ -9,6 +10,7 @@ const Product = ({ node, props }) => (
 
 const Header = props => (
   <header id="header" style={props.timeout ? { display: 'none' } : {}}>
+    
     <div className="content">
       <div className="inner">
       <h1>{props.home.title}</h1>

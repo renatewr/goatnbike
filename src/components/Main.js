@@ -4,24 +4,27 @@ import React from 'react'
 import pic01 from '../images/pic01.jpg'
 import pic02 from '../images/pic02.jpg'
 import pic03 from '../images/pic03.jpg'
+import Cross from '../images/cross.svg'
 
 const SecondPage = (props) => {
 
   const articles = props.art
   return (
-    <div id="main" style={props.timeout ? {display: 'flex'} : {display: 'none'}}>  
+    <div ref={props.wrapperRef} id="main" style={props.timeout ? {display: 'flex'} : {display: 'none'}}>  
     {articles.map(({ node: { title, slug, body, featuredImage } }) => (
       <article key={slug} id={slug} className={`${props.article === slug ? 'active' : ''} ${props.articleTimeout ? 'timeout' : ''}`} style={{display:'none'}}>
+          <img src={Cross} alt="" />
           <h2 className="major">{title.title}</h2>
+          {props.close}
           <div className="image main">
           <Img fluid={featuredImage.fluid} key={featuredImage.fluid.src} alt={featuredImage.title}/>
           </div>
           <div dangerouslySetInnerHTML={ { __html: body.childMarkdownRemark.html } }></div>
-          {props.close}
         </article>
     ))}
     <article id="contact" className={`${props.article === 'contact' ? 'active' : ''} ${props.articleTimeout ? 'timeout' : ''}`} style={{display:'none'}}>
           <h2 className="major">Contact</h2>
+          {props.close}
           <form method="post" action="#">
             <div className="field half first">
               <label htmlFor="name">Name</label>
@@ -40,7 +43,6 @@ const SecondPage = (props) => {
               <li><input type="reset" value="Reset" /></li>
             </ul>
           </form>          
-          {props.close}
         </article>
         
   </div>
@@ -62,7 +64,7 @@ class Main extends React.Component {
     )
     if(this.props && this.props.art){
       return (
-        <SecondPage art={this.props.art} article={this.props.article} timeout={this.props.timeout} articleTimeout={this.props.articleTimeout} close={close}/>
+        <SecondPage wrapperRef={this.props.setWrapperRef} art={this.props.art} article={this.props.article} timeout={this.props.timeout} articleTimeout={this.props.articleTimeout} close={close}/>
       )
     }
     return null;
