@@ -12,9 +12,6 @@ const Header = props => (
   <header id="header" style={props.timeout ? { display: 'none' } : {}}>
     
     <div className="content">
-    <div class="logo">
-    <img src={Logo} alt="" />
-        </div>
       <div className="inner">
       <h1>{props.home.title}</h1>
       <p>{props.home.leadingText.leadingText}</p>
