@@ -31,7 +31,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token a4ufo37fys8"
+    "chromatic": "npx chromatic --project-token 3bk1gwc28wv"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
